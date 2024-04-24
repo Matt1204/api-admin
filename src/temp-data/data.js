@@ -4,13 +4,19 @@ const projects = [
         name: "项目1",
         projectDesc: "项目描述1项目描述1项目描述1.项目描述1项目描述1项目描述1.项目.1项目描述1.项目.项目描述1.项目.项目描述1.项目.项目描述1.项目.项目描述1.项目.项目描述1.项目.项目描述1.项目.项目描述1.项目.",
         customDomain: null,
-        globalParams: [{ key: 'drink', value: 'coke' }, { key: 'food', value: 'burger' }]
+        globalParams: [
+            { paramKey: { val: 'drink', validity: true }, paramValue: { val: 'coke', validity: true } },
+            { paramKey: { val: 'food', validity: true }, paramValue: { val: 'burger', validity: true } }
+        ]
     },
     {
         id: 2, name: "项目2",
         projectDesc: "项目描述2项目描述2项目描述22项目描述22项目描述2.",
         customDomain: null,
-        globalParams: [{ key: 'car', value: 'ferrari' }, { key: 'bike', value: 'honda' }]
+        globalParams: [
+            { paramKey: { val: 'car', validity: true }, paramValue: { val: 'ferrari', validity: true } },
+            { paramKey: { val: 'bike', validity: true }, paramValue: { val: '', validity: true } }
+        ]
 
     },
     {

@@ -22,14 +22,18 @@
   <div v-if="paramDialogVisibility">
     <Modal
       v-model="paramDialogVisibility"
-      @confirm="() => 1"
+      @confirm="handleParamSubmit"
       @cancel="
         () => {
           paramDialogVisibility = false
         }
       "
+      :modal-title="`${activeProject.name} 全局参数`"
+      :modal-width="700"
     >
-      <ApiParams :param-arr="paramData" />
+      <div class="param-container">
+        <ApiParams :param-arr="paramData" ref="apiParamsRef" />
+      </div>
     </Modal>
   </div>
 </template>
@@ -37,10 +41,13 @@
 <script setup>
 // import { projects as projectsList } from "@/temp-data/data.js"
 
-import Modal from "@/components/Modal.vue"
-import ApiParams from "@/views/api_views/components/ApiParams.vue"
 import { ref } from "vue"
 import { storeToRefs } from "pinia"
+import cloneDeep from "lodash/cloneDeep"
+import { ElMessage } from "element-plus"
+
+import Modal from "@/components/Modal.vue"
+import ApiParams from "@/views/api_views/components/ApiParams.vue"
 import { useActiveProjectStore } from "@/stores/project_detail/activeProject.js"
 const activeProjectStore = useActiveProjectStore()
 
@@ -49,6 +56,8 @@ const { activeProject } = storeToRefs(activeProjectStore)
 // 全局参数逻辑
 const paramDialogVisibility = ref(false)
 const paramData = ref([])
+const apiParamsRef = ref(null)
+// 获取数据
 const getGlobalParam = () => {
   if ("globalParams" in activeProject.value && activeProject.value.globalParams) {
     return activeProject.value.globalParams
@@ -61,7 +70,19 @@ const handleParamOpen = () => {
   if (!data) return
   paramData.value = data
   paramDialogVisibility.value = true
-  console.log("get param:", paramData.value)
+}
+const handleParamSubmit = () => {
+  if (apiParamsRef.value && apiParamsRef.value.editParamArr) {
+    let paramArr = cloneDeep(apiParamsRef.value.editParamArr)
+    paramArr.splice(-1, 1)
+    // paramArr.forEach((row) => {
+    //   if (!row.paramKey.validity || !row.paramValue.validity) {
+    //     ElMessage("表单校验不通过")
+    //     return
+    //   }
+    // })
+    // console.log("Submit...", paramArr) // Access the data
+  }
 }
 </script>
 <style scoped>
@@ -78,5 +99,9 @@ const handleParamOpen = () => {
   width: 16px;
   height: 16px;
   margin-right: 2px;
+}
+.param-container {
+  width: 100%;
+  height: 350px;
 }
 </style>
