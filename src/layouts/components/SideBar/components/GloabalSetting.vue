@@ -1,16 +1,28 @@
 <template>
   <div class="global-setting-container width100">
     <el-row>
-      <el-col :span="8" class="setting-bar-col display-flex flex-justify-center flex-align-center">
+      <el-col
+        :span="8"
+        class="setting-bar-col display-flex flex-justify-center flex-align-center"
+        @click="
+          () => {
+            reqDialogVisibility = true
+          }
+        "
+      >
         <img class="setting-icon" src="../assets/global_config.svg" alt="folder" />
         <span class="item-req-type">{{ "全局配置" }}</span>
       </el-col>
       <el-col
         :span="8"
         class="setting-bar-col display-flex flex-justify-center flex-align-center"
-        @click="handleParamOpen"
+        @click="
+          () => {
+            varDialogVisibility = true
+          }
+        "
       >
-        <img class="setting-icon" src="../assets/global_param.svg" alt="folder" />
+        <img class="setting-icon" src="../assets/global_var.svg" alt="folder" />
         <span class="item-req-type">{{ "全局参数" }}</span>
       </el-col>
       <el-col :span="8" class="setting-bar-col display-flex flex-justify-center flex-align-center">
@@ -19,71 +31,30 @@
       </el-col>
     </el-row>
   </div>
-  <div v-if="paramDialogVisibility">
-    <Modal
-      v-model="paramDialogVisibility"
-      @confirm="handleParamSubmit"
-      @cancel="
-        () => {
-          paramDialogVisibility = false
-        }
-      "
-      :modal-title="`${activeProject.name} 全局参数`"
-      :modal-width="700"
-    >
-      <div class="param-container">
-        <ApiParams :param-arr="paramData" ref="apiParamsRef" />
-      </div>
-    </Modal>
+
+  <!-- 全局变量 -->
+  <div v-if="reqDialogVisibility">
+    <GlobalReqCom v-model="reqDialogVisibility" />
   </div>
+
+  <!-- 全局变量 -->
+  <div v-if="varDialogVisibility">
+    <GlobalVarCom v-model="varDialogVisibility" />
+  </div>
+
+  <div></div>
 </template>
 
 <script setup>
-// import { projects as projectsList } from "@/temp-data/data.js"
-
 import { ref } from "vue"
-import { storeToRefs } from "pinia"
-import cloneDeep from "lodash/cloneDeep"
-import { ElMessage } from "element-plus"
 
-import Modal from "@/components/Modal.vue"
-import ApiParams from "@/views/api_views/components/ApiParams.vue"
-import { useActiveProjectStore } from "@/stores/project_detail/activeProject.js"
-const activeProjectStore = useActiveProjectStore()
+import GlobalVarCom from "@/layouts/components/SideBar/components/GlobalVarCom.vue"
+import GlobalReqCom from "@/layouts/components/SideBar/components/GlobalReqCom.vue"
+// 全局参数
+const reqDialogVisibility = ref(false)
 
-const { activeProject } = storeToRefs(activeProjectStore)
-
-// 全局参数逻辑
-const paramDialogVisibility = ref(false)
-const paramData = ref([])
-const apiParamsRef = ref(null)
-// 获取数据
-const getGlobalParam = () => {
-  if ("globalParams" in activeProject.value && activeProject.value.globalParams) {
-    return activeProject.value.globalParams
-  } else {
-    return null
-  }
-}
-const handleParamOpen = () => {
-  let data = getGlobalParam()
-  if (!data) return
-  paramData.value = data
-  paramDialogVisibility.value = true
-}
-const handleParamSubmit = () => {
-  if (apiParamsRef.value && apiParamsRef.value.editParamArr) {
-    let paramArr = cloneDeep(apiParamsRef.value.editParamArr)
-    paramArr.splice(-1, 1)
-    // paramArr.forEach((row) => {
-    //   if (!row.paramKey.validity || !row.paramValue.validity) {
-    //     ElMessage("表单校验不通过")
-    //     return
-    //   }
-    // })
-    // console.log("Submit...", paramArr) // Access the data
-  }
-}
+// 全局变量
+const varDialogVisibility = ref(false)
 </script>
 <style scoped>
 .global-setting-container {
@@ -100,7 +71,7 @@ const handleParamSubmit = () => {
   height: 16px;
   margin-right: 2px;
 }
-.param-container {
+.var-container {
   width: 100%;
   height: 350px;
 }

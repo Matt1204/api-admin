@@ -78,9 +78,11 @@ const onEditProj = (project) => {
 }
 const onEditConfirm = () => {
   console.log("Edit Confirm")
+  editVisibility.value = false
 }
 const onEditCancel = () => {
   console.log("Edit Cancel")
+  editVisibility.value = false
 }
 
 // 克隆对话框
@@ -91,9 +93,11 @@ const onCloneProj = (project) => {
 }
 const onCloneConfirm = () => {
   console.log("Edit Confirm")
+  cloneVisibility.value = false
 }
 const onCloneCancel = () => {
   console.log("Edit Cancel")
+  cloneVisibility.value = false
 }
 
 // 删除对话框
@@ -104,9 +108,11 @@ const onDeleteProj = (project) => {
 }
 const onDeleteConfirm = () => {
   console.log("Delete Confirm")
+  deleteVisibility.value = false
 }
 const onDeleteCancel = () => {
   console.log("Delete Cancel")
+  deleteVisibility.value = false
 }
 </script>
 <style scoped>

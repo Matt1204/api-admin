@@ -1,5 +1,11 @@
 <template>
-  <el-dialog v-model="modelValue" :z-index="101" :width="modalWidth" center>
+  <el-dialog
+    v-model="modelValue"
+    :z-index="101"
+    :width="modalWidth"
+    :close-on-click-modal="false"
+    center
+  >
     <template #header>
       <div class="header-container">
         <span>{{ modalTitle }}</span>
@@ -37,7 +43,7 @@ const modelValue = defineModel()
 
 const onConfirm = () => {
   emit("confirm")
-  closeDialog()
+  // closeDialog()
 }
 const onCancel = () => {
   emit("cancel")

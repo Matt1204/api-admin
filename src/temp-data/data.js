@@ -4,20 +4,26 @@ const projects = [
         name: "项目1",
         projectDesc: "项目描述1项目描述1项目描述1.项目描述1项目描述1项目描述1.项目.1项目描述1.项目.项目描述1.项目.项目描述1.项目.项目描述1.项目.项目描述1.项目.项目描述1.项目.项目描述1.项目.项目描述1.项目.",
         customDomain: null,
-        globalParams: [
-            { paramKey: { val: 'drink', validity: true }, paramValue: { val: 'coke', validity: true } },
-            { paramKey: { val: 'food', validity: true }, paramValue: { val: 'burger', validity: true } }
+        globalVar: [
+            { varKey: { val: 'drink', validity: true }, varValue: { val: 'coke', validity: true } },
+            { varKey: { val: 'food', validity: true }, varValue: { val: 'burger', validity: true } }
         ]
     },
     {
         id: 2, name: "项目2",
         projectDesc: "项目描述2项目描述2项目描述22项目描述22项目描述2.",
         customDomain: null,
-        globalParams: [
-            { paramKey: { val: 'car', validity: true }, paramValue: { val: 'ferrari', validity: true } },
-            { paramKey: { val: 'bike', validity: true }, paramValue: { val: '', validity: true } }
-        ]
-
+        globalVar: [
+            { varKey: { val: 'car', validity: true }, varValue: { val: 'ferrari', validity: true } },
+            { varKey: { val: 'bike', validity: true }, varValue: { val: '', validity: true } }
+        ],
+        globalReq: {
+            param:
+                [
+                    { paramKey: { val: 'paramKey1', validity: true }, paramValue: { val: 'paramValue111', validity: true } },
+                    { paramKey: { val: 'paramKey2', validity: true }, paramValue: { val: 'paramValue222222', validity: true } }
+                ],
+        }
     },
     {
         id: 3, name: "项目3", projectDesc: "项目描述33333.", customDomain: null
